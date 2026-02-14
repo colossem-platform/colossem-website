@@ -23,7 +23,7 @@ export default function Navbar() {
             </a>
           ))}
         </div>
-        <GlowButton variant="crimson" href="#" className="text-xs">
+        <GlowButton variant="crimson" href="/manage" className="text-xs">
           Launch App
         </GlowButton>
       </div>
