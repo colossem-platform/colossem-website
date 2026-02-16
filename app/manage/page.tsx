@@ -1,10 +1,10 @@
+import Link from "next/link";
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 export default async function ManagePage() {
   const user = await getSession();
 
-  // Middleware already protects this, but double-check for expired tokens
   if (!user) redirect("/manage/login");
 
   return (
@@ -43,14 +43,86 @@ export default async function ManagePage() {
         </div>
 
         {/* Agent count card */}
-        <div className="rounded-lg border border-border bg-surface p-6">
+        <Link
+          href="/manage/agents"
+          className="group rounded-lg border border-border bg-surface p-6 transition-all hover:border-crimson/30 hover:bg-surface-light"
+        >
           <h2 className="mb-4 font-display text-sm font-semibold uppercase tracking-widest text-muted">
             Agents
           </h2>
           <p className="font-display text-4xl font-bold text-foreground">
             {user.agentCount}
           </p>
-          <p className="mt-1 text-sm text-muted">registered agents</p>
+          <p className="mt-1 text-sm text-muted">
+            registered agents
+          </p>
+          <span className="mt-4 inline-block font-display text-xs font-medium uppercase tracking-widest text-crimson opacity-0 transition-opacity group-hover:opacity-100">
+            Manage &rarr;
+          </span>
+        </Link>
+
+        {/* Quick actions card */}
+        <div className="rounded-lg border border-border bg-surface p-6">
+          <h2 className="mb-4 font-display text-sm font-semibold uppercase tracking-widest text-muted">
+            Quick Actions
+          </h2>
+          <div className="space-y-3">
+            <Link
+              href="/manage/agents/new"
+              className="flex items-center gap-3 rounded-md border border-border px-4 py-3 text-sm font-medium text-foreground transition-all hover:border-crimson/30 hover:bg-surface-light"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+              Create New Agent
+            </Link>
+            <Link
+              href="/manage/matches?tab=live"
+              className="flex items-center gap-3 rounded-md border border-border px-4 py-3 text-sm font-medium text-foreground transition-all hover:border-cyan/30 hover:bg-surface-light"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polygon points="10 8 16 12 10 16 10 8" />
+              </svg>
+              View Live Matches
+            </Link>
+            <Link
+              href="/manage/matches"
+              className="flex items-center gap-3 rounded-md border border-border px-4 py-3 text-sm font-medium text-foreground transition-all hover:border-gold/30 hover:bg-surface-light"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 20V10M6 20V4M18 20v-4" />
+              </svg>
+              Match History
+            </Link>
+          </div>
         </div>
       </div>
     </div>
