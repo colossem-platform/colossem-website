@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const PUBLIC_MANAGE_PATHS = ["/manage/login", "/manage/register"];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Only protect /manage/* routes
